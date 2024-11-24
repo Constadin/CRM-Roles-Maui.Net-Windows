@@ -5,6 +5,12 @@ VisualStudioVersion = 17.12.35514.174 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiUI", "MauiUI\MauiUI.csproj", "{1B51AB53-BE32-4C6B-88AF-38C344F46056}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.Infrastructure", "CRM.Infrastructure\CRM.Infrastructure.csproj", "{BD8A576B-BA72-4383-9573-3F8058A0B0DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.Domain", "CRM.Domain\CRM.Domain.csproj", "{A660A563-DA70-48E2-8717-C8FE108A9870}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.Abstractions", "CRM.Abstractions\CRM.Abstractions.csproj", "{21B1D8C8-C377-4EDA-BD28-16A554B312E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +23,18 @@ Global
 		{1B51AB53-BE32-4C6B-88AF-38C344F46056}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B51AB53-BE32-4C6B-88AF-38C344F46056}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1B51AB53-BE32-4C6B-88AF-38C344F46056}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{BD8A576B-BA72-4383-9573-3F8058A0B0DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD8A576B-BA72-4383-9573-3F8058A0B0DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD8A576B-BA72-4383-9573-3F8058A0B0DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD8A576B-BA72-4383-9573-3F8058A0B0DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A660A563-DA70-48E2-8717-C8FE108A9870}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A660A563-DA70-48E2-8717-C8FE108A9870}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A660A563-DA70-48E2-8717-C8FE108A9870}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A660A563-DA70-48E2-8717-C8FE108A9870}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21B1D8C8-C377-4EDA-BD28-16A554B312E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21B1D8C8-C377-4EDA-BD28-16A554B312E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21B1D8C8-C377-4EDA-BD28-16A554B312E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21B1D8C8-C377-4EDA-BD28-16A554B312E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

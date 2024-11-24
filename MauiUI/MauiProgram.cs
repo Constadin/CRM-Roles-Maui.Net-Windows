@@ -1,4 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CRM.Domain.Owners.Interfaces;
+using CRM.Infrastructure.Configuration.Services;
+using CRM.Infrastructure.Repositories;
+using Microsoft.Extensions.Logging; // Εισάγει την υποστήριξη για logging.
+using Prism; // Εισάγει τη βιβλιοθήκη Prism για την υποστήριξη MVVM.
+using Prism.Navigation; // Εισάγει τις λειτουργίες πλοήγησης της Prism.
+using DevExpress.Maui;
 
 namespace MauiUI
 {
@@ -6,17 +12,37 @@ namespace MauiUI
     {
         public static MauiApp CreateMauiApp()
         {
-            var builder = MauiApp.CreateBuilder();
+            var builder = MauiApp.CreateBuilder(); // Δημιουργεί έναν builder για την εφαρμογή.
             builder
-                .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
+                .UseMauiApp<App>() // Καθορίζει την κύρια εφαρμογή.
+                .UseDevExpress(useLocalization: false)
+                .UseDevExpressCollectionView()
+                .UsePrism((prismBuilder) => // Ενσωματώνει τη βιβλιοθήκη Prism.
+                {
+                    prismBuilder.RegisterTypes((registry) => // Καταχωρεί τύπους για πλοήγηση.
+                    {
+                        registry
+                            .RegisterUiServices() // Καταχωρεί τις υπηρεσίες UI.
+
+                            .RegisterForNavigation<MainPage>();
+                    });
+
+                    prismBuilder.CreateWindow(async (navigation) => // Δημιουργεί ένα παράθυρο και διαχειρίζεται την πλοήγηση.
+                    {
+                        await navigation.CreateBuilder() // Δημιουργεί έναν builder για την πλοήγηση.
+
+                            .AddSegment<MainPage>() // Προσθέτει τη σελίδα σύνδεσης στην πλοήγηση.
+                            .NavigateAsync(); // Εκκινεί την πλοήγηση.
+                    });
+                })
+                .ConfigureFonts(fonts => // Ρυθμίζει τις γραμματοσειρές.
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-#if DEBUG
-    		builder.Logging.AddDebug();
+#if DEBUG // Αν η εφαρμογή είναι σε κατάσταση ανάπτυξης.
+            builder.Logging.AddDebug(); // Προσθέτει logging για debugging.
 #endif
 
             return builder.Build();

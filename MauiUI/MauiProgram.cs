@@ -1,10 +1,13 @@
-﻿using CRM.Domain.Owners.Interfaces;
+﻿
 using CRM.Infrastructure.Configuration.Services;
 using CRM.Infrastructure.Repositories;
 using Microsoft.Extensions.Logging; // Εισάγει την υποστήριξη για logging.
 using Prism; // Εισάγει τη βιβλιοθήκη Prism για την υποστήριξη MVVM.
 using Prism.Navigation; // Εισάγει τις λειτουργίες πλοήγησης της Prism.
 using DevExpress.Maui;
+using MauiUI.Pages.Login.Views;
+using MauiUI.Pages.Login.ViewModels;
+
 
 namespace MauiUI
 {
@@ -24,14 +27,15 @@ namespace MauiUI
                         registry
                             .RegisterUiServices() // Καταχωρεί τις υπηρεσίες UI.
 
-                            .RegisterForNavigation<MainPage>();
+                            .RegisterForNavigation<MainPage>()
+                            .RegisterForNavigation<LoginViewPage, LoginViewModel>();
                     });
 
                     prismBuilder.CreateWindow(async (navigation) => // Δημιουργεί ένα παράθυρο και διαχειρίζεται την πλοήγηση.
                     {
                         await navigation.CreateBuilder() // Δημιουργεί έναν builder για την πλοήγηση.
 
-                            .AddSegment<MainPage>() // Προσθέτει τη σελίδα σύνδεσης στην πλοήγηση.
+                            .AddSegment<LoginViewPage>() // Προσθέτει τη σελίδα σύνδεσης στην πλοήγηση.
                             .NavigateAsync(); // Εκκινεί την πλοήγηση.
                     });
                 })

@@ -1,4 +1,4 @@
-﻿using CRM.Domain.Owners.Interfaces;
+﻿using CRM.Abstractions.Interfaces;
 using CRM.Domain.Owners.Models;
 using CRM.Infrastructure.Configuration.Services;
 using Dapper;
@@ -12,33 +12,35 @@ using System.Threading.Tasks;
 
 namespace CRM.Infrastructure.Repositories
 {
-    public class OwnerRepositoryGRUD : IOwnerRepositoryGRUD
+    public class OwnerRepositoryGRUD : IRepositoryGRUD<Owner>
     {
-
-        private readonly IDatabaseConnectionProvider _DatabaseConnectionProvider;
+        private readonly GenericRepositoryGRUD<Owner> _GenericRepository;
 
         public OwnerRepositoryGRUD(IServiceProvider serviceProvider)
         {
-            this._DatabaseConnectionProvider = serviceProvider.GetRequiredService<IDatabaseConnectionProvider>();
-
+            this._GenericRepository = new GenericRepositoryGRUD<Owner>(serviceProvider);
         }
-        public List<Owner> LoadOwners()
+
+        public List<Owner> LoadEntities()
         {
-            using (IDbConnection cnn = new SQLiteConnection(this._DatabaseConnectionProvider.GetConnectionString()))
-            {
-                var responseQuery = cnn.Query<Owner>("Select * From Owners", new DynamicParameters());
-
-                return responseQuery.ToList();
-            }
-
+            return this._GenericRepository.LoadEntities();
         }
-        public void SaveOwner(Owner owner)
+
+        public void SaveEntity(Owner owner)
         {
-            using (IDbConnection cnn = new SQLiteConnection(this._DatabaseConnectionProvider.GetConnectionString()))
-            {
-                cnn.Execute("insert into Owners (FirstName, LastName, PhoneNumber) values (@FirstName, @LastName, @PhoneNumber)", owner);
-            }
-
+            this._GenericRepository.SaveEntity(owner);
         }
+
+        public void UpdateEntity(Owner owner)
+        {
+            this._GenericRepository.UpdateEntity(owner);
+        }
+
+        public void DeleteEntity(int id)
+        {
+            this._GenericRepository.DeleteEntity(id);
+        }
+
+
     }
 }

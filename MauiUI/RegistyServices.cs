@@ -1,4 +1,5 @@
-﻿using CRM.Domain.Owners.Interfaces;
+﻿using CRM.Abstractions.Interfaces;
+using CRM.Domain.Owners.Models;
 using CRM.Infrastructure.Configuration.Services;
 using CRM.Infrastructure.Repositories;
 using System;
@@ -14,8 +15,7 @@ namespace MauiUI
         public static IServiceCollection RegisterUiServices(this IServiceCollection services) // Μέθοδος για την καταχώριση υπηρεσιών στο IServiceCollection.
         { 
             services.AddSingleton<IDatabaseConnectionProvider, DatabaseConnectionProvider>();
-            services.AddSingleton<IOwnerRepositoryGRUD, IOwnerRepositoryGRUD>();
-
+            services.AddSingleton<IRepositoryGRUD<Owner>, OwnerRepositoryGRUD>();
             return services; // Επιστρέφει το IServiceCollection για αλυσίδωτες κλήσεις.
         }
 
@@ -23,7 +23,7 @@ namespace MauiUI
         {           
 
             containerRegistry.RegisterSingleton<IDatabaseConnectionProvider, DatabaseConnectionProvider>();
-            containerRegistry.RegisterSingleton<IOwnerRepositoryGRUD, OwnerRepositoryGRUD>();
+            containerRegistry.RegisterSingleton<IRepositoryGRUD<Owner>, OwnerRepositoryGRUD>();
 
             return containerRegistry; // Επιστρέφει το IContainerRegistry για αλυσίδωτες κλήσεις.
         }

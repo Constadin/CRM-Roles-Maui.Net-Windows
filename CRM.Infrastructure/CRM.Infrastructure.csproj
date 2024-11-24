@@ -48,6 +48,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\CRM.Abstractions\CRM.Abstractions.csproj" />
 	  <ProjectReference Include="..\CRM.Domain\CRM.Domain.csproj" />
 	</ItemGroup>
 

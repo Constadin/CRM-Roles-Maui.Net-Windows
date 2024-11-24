@@ -24,6 +24,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Cryptography\" />
+	  <Folder Include="Owners\Interfaces\" />
 	  <Folder Include="Owners\ValueObjects\" />
 	</ItemGroup>
 

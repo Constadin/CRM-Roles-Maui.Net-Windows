@@ -25,15 +25,22 @@
                             Padding="10"
                             Margin="0"
                             HasShadow="True"
-                            MinimumWidthRequest="250">
+                            MinimumWidthRequest="580">
 
                             <Label
-                                FontSize="16">
+                                FontSize="16" HorizontalTextAlignment="Start">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{Binding FirstName}" FontAttributes="Bold" />
-                                        <Span Text=" " />
+                                        <Span Text="{Binding FirstName}"
+                                              FontAttributes="Bold" />
+                                        <Span Text="    " />
                                         <Span Text="{Binding LastName}" />
+                                        <Span Text="    " />
+                                        <Span Text="{Binding Email}" />
+                                        <Span Text="    " />
+                                        <Span Text="{Binding PhoneNumber}" />
+                                        <Span Text="    " />
+                                        <Span Text="{Binding VatNumber}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>

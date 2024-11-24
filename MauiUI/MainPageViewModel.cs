@@ -1,5 +1,5 @@
 ﻿
-using CRM.Domain.Owners.Interfaces;
+using CRM.Abstractions.Interfaces;
 using CRM.Domain.Owners.Models;
 using CRM.Infrastructure.Configuration.Services;
 using CRM.Infrastructure.Repositories;
@@ -20,9 +20,12 @@ namespace MauiUI
 
         // ObservableCollection to hold the owners list
         private ObservableCollection<Owner> _Owner = new ObservableCollection<Owner>();
+        private readonly IRepositoryGRUD<Owner> _OwnerRepository; // Injected repository
         private string _FirstName;
         private string _LastName;
-        private readonly IOwnerRepositoryGRUD _OwnerRepositoryGRUD;
+        private string _Email;
+        private string _PhoneNumber;
+        private string _VatNumber;
         
         #endregion
 
@@ -43,6 +46,24 @@ namespace MauiUI
             get => _LastName;
             set => SetPropertyValue(ref _LastName, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
         }
+        public string Email
+        {
+            get => _Email;
+            set => SetPropertyValue(ref _Email, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
+        }
+
+        public string PhoneNumber
+        {
+            get => _PhoneNumber;
+            set => SetPropertyValue(ref _PhoneNumber, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
+        }
+
+        public string VatNumber
+        {
+            get => _VatNumber;
+            set => SetPropertyValue(ref _VatNumber, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
+        }
+
 
 
         public ICommand LoadDataCommand { get; }
@@ -54,7 +75,7 @@ namespace MauiUI
         public MainPageViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
                        
-            this._OwnerRepositoryGRUD = serviceProvider.GetRequiredService<IOwnerRepositoryGRUD>();
+            this._OwnerRepository = serviceProvider.GetRequiredService<IRepositoryGRUD<Owner>>();
             // Δημιουργία της εντολής Command με την μέθοδο LoadDataAsync
             this.LoadDataCommand = new Command(async () => await LoadDataAsync());
 
@@ -68,8 +89,12 @@ namespace MauiUI
         {
             try
             {
-                var ownersList = this._OwnerRepositoryGRUD.LoadOwners();
-                this.Owners = new ObservableCollection<Owner>(ownersList); // Assign the loaded owners list to the ObservableCollection
+                // Simulate async operation (if your repository supports async, make this awaitable)
+                await Task.Run(() =>
+                {
+                    var ownersList = this._OwnerRepository.LoadEntities(); // Load owners
+                    Owners = new ObservableCollection<Owner>(ownersList); // Assign to the ObservableCollection
+                });
             }
             catch (Exception ex)
             {

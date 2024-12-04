@@ -19,13 +19,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+	  <Compile Remove="ShareRepositories\**" />
+	  <EmbeddedResource Remove="ShareRepositories\**" />
+	  <MauiCss Remove="ShareRepositories\**" />
+	  <MauiXaml Remove="ShareRepositories\**" />
+	  <None Remove="ShareRepositories\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Services\" />
-	  <Folder Include="ShareRepositories\" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 	</ItemGroup>
 
 </Project>

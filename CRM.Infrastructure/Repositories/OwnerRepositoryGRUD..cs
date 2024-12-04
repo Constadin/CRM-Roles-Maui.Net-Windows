@@ -1,4 +1,4 @@
-﻿using CRM.Abstractions.Interfaces;
+﻿using CRM.Abstractions.Repositories;
 using CRM.Domain.Owners.Models;
 using CRM.Infrastructure.Configuration.Services;
 using Dapper;

@@ -1,5 +1,4 @@
-﻿using CRM.Abstractions.Interfaces;
-using CRM.Infrastructure.Configuration.Services;
+﻿using CRM.Infrastructure.Configuration.Services;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CRM.Abstractions.Repositories;
+using CRM.Abstractions.Services;
 
 namespace CRM.Infrastructure.Repositories
 {
@@ -51,10 +52,12 @@ namespace CRM.Infrastructure.Repositories
             {
                 // Dynamically generate the insert statement for the entity based on its properties
                 var tableName = typeof(T).Name + "s"; // Assume plural table names
+                                                      // Generate the query dynamically
+                var properties = typeof(T).GetProperties().Where(p => p.Name != "OwnerId");
 
-                var columns = string.Join(", ", typeof(T).GetProperties().Select(p => p.Name));
+                var columns = string.Join(", ", properties.Select(p => p.Name));
 
-                var parameters = string.Join(", ", typeof(T).GetProperties().Select(p => "@" + p.Name));
+                var parameters = string.Join(", ", properties.Select(p => "@" + p.Name));
 
                 var query = $"INSERT INTO {tableName} ({columns}) VALUES ({parameters})";
 

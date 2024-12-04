@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModel="clr-namespace:MauiUI.Main.Login.ViewModels"
+    x:DataType="viewModel:LoginViewModel"
+    x:Class="MauiUI.Main.Login.Views.LoginViewPage"
+    Title="Login">
+
+    <Grid        
+        RowDefinitions="*, 2*, Auto"
+        BackgroundColor="LightGrey">
+        <!-- Image in the first row -->
+        <Image
+            Source="crmback.jpeg"
+            Grid.Row="0"
+            Aspect="Fill"
+            MaximumHeightRequest="320"/>
+        <!-- Form in the second row -->
+        <Frame
+            x:Name="frame"
+            Grid.Row="1"
+            WidthRequest="380"
+            HeightRequest="240"
+            Padding="0"
+            Margin="30"
+            VerticalOptions="Start"
+            HorizontalOptions="CenterAndExpand"
+            BackgroundColor="#0077B6">
+            <VerticalStackLayout
+                BackgroundColor="Transparent"
+                Padding="10">
+                <Entry
+                    x:Name="usernameEntry"
+                    Placeholder="Username"
+                    PlaceholderColor="Black"
+                    TextColor="Black"
+                    BackgroundColor="White"
+                    FontSize="15"
+                    Margin="0,20,0,0"
+                    Text="{Binding Username}"/>
+                <Entry
+                    x:Name="passwordEntry"
+                    Placeholder="Password"
+                    PlaceholderColor="Black"
+                    TextColor="Black"
+                    BackgroundColor="White"
+                    IsPassword="True"
+                    FontSize="15"
+                    Margin="0,20,0,0"
+                    Text="{Binding Password}"/>
+                <Button
+                    Text="Login"
+                    TextColor="Black"
+                    FontSize="20"
+                    Margin="0,20,0,0"
+                    WidthRequest="180"
+                    BackgroundColor="Orange"
+                    Command="{Binding LoginCommand}"/>
+            </VerticalStackLayout>
+        </Frame>
+        <VerticalStackLayout
+            Grid.Row="2">
+            <Label                
+                BackgroundColor="#0077B6"
+                HeightRequest="40"
+                TextColor="White"
+                FontSize="15"
+                Text="Powered by YourAppName © 2024. All rights reserved.
+                      Need help? Contact us at support@yourcompany.com"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Center"
+                Padding="100"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

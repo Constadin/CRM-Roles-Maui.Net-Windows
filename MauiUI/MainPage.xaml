@@ -7,54 +7,61 @@
     x:DataType="viewModel:MainPageViewModel"
     Title="Main">
 
-
-    <!-- Define CollectionView to display Owners list -->
-    <StackLayout
-        VerticalOptions="Start"
-        HorizontalOptions="Center">
-
+    <ScrollView>
         <!-- Define CollectionView to display Owners list -->
-        <CollectionView ItemsSource="{Binding Owners}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout
+        <StackLayout
+            VerticalOptions="Start"
+            HorizontalOptions="Center">
+
+            <!-- Define CollectionView to display Owners list -->
+            <CollectionView ItemsSource="{Binding Owners}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout
                          Padding="5"
                          Orientation="Horizontal">
-                        <Frame
+                            <Frame
                             BackgroundColor="LightGrey"
                             Padding="10"
                             Margin="0"
                             HasShadow="True"
                             MinimumWidthRequest="580">
 
-                            <Label
+                                <Label
                                 FontSize="16" HorizontalTextAlignment="Start">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="{Binding FirstName}"
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding FirstName}"
                                               FontAttributes="Bold" />
-                                        <Span Text="    " />
-                                        <Span Text="{Binding LastName}" />
-                                        <Span Text="    " />
-                                        <Span Text="{Binding Email}" />
-                                        <Span Text="    " />
-                                        <Span Text="{Binding PhoneNumber}" />
-                                        <Span Text="    " />
-                                        <Span Text="{Binding VatNumber}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                        </Frame>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
-        <!-- Button to trigger LoadData command -->
-        <Button
-            MaximumWidthRequest="150"
-            Text="Load Owners"
-            Command="{Binding LoadDataCommand}" />
-    </StackLayout>
-
+                                            <Span Text="    " />
+                                            <Span Text="{Binding LastName}" />
+                                            <Span Text="    " />
+                                            <Span Text="{Binding Email}" />
+                                            <Span Text="    " />
+                                            <Span Text="{Binding PhoneNumber}" />
+                                            <Span Text="    " />
+                                            <Span Text="{Binding VatNumber}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Frame>
+                            <StackLayout Padding="20" Spacing="15">
+                                <Label Text="Register New Owner" FontSize="24" HorizontalOptions="Center" />
+                                <Entry Placeholder="First Name" Text="{Binding FirstName}" />
+                                <Entry Placeholder="Last Name" Text="{Binding LastName}" />
+                                <Entry Placeholder="Email" Text="{Binding Email}" Keyboard="Email" />
+                                <Entry Placeholder="Password" IsPassword="True" />
+                                <Entry Placeholder="Username" />
+                                <Entry Placeholder="Phone Number" Text="{Binding PhoneNumber}" Keyboard="Telephone" />
+                                <Entry Placeholder="VAT Number" Text="{Binding VatNumber}" />
+                                <Picker Title="Type of Store" SelectedItem="{Binding TypeOfStoreID}">
+                                </Picker>
+                                <Button Text="Register" Command="{Binding SaveOwnerCommand}" BackgroundColor="LightBlue" />
+                            </StackLayout>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

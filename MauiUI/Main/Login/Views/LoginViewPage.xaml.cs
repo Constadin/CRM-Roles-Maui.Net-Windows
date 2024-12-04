@@ -1,6 +1,6 @@
 using Microsoft.Maui.Controls;
 
-namespace MauiUI.Pages.Login.Views;
+namespace MauiUI.Main.Login.Views;
 
 public partial class LoginViewPage : ContentPage
 {

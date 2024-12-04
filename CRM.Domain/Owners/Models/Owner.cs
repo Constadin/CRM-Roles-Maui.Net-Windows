@@ -9,28 +9,36 @@ namespace CRM.Domain.Owners.Models
 {
     public class Owner
     {
-        // Αναγνωριστικό του ιδιοκτήτη (πρωτεύον κλειδί)
+        // Primary key for the Owner entity
+        public int OwnerId { get; set; }
 
-        public int Id { get; set; }
+        // Owner's last name
+        public string? LastName { get; set; }
 
-        // Όνομα χρήστη για σύνδεση
-        [Required]
-        [StringLength(30)]
+        // Owner's first name
+        public string? FirstName { get; set; }
+
+        // Owner's email address
+        public string? Email { get; set; }
+
+        // Hashed password for the owner
+        public string? Password { get; set; }
+
+        // Owner's username
         public string? Username { get; set; }
 
-        // Κωδικός πρόσβασης που αποθηκεύεται κατακερματισμένος
-        [Required]
-        [StringLength(20)]
-        public string? PasswordHash { get; set; }
+        // Owner's phone number
+        public string? PhoneNumber { get; set; }
 
-        // Ξένο κλειδί για τον τύπο καταστήματος
+        // Owner's VAT number
+        public string? VatNumber { get; set; }
+
+        // Foreign key for the type of store
         public int? TypeOfStoreId { get; set; }
 
-        // Ιδιότητα πλοήγησης (συσχέτιση με τον πίνακα TypeOfStores)
-        public TypeOfStore? TypeOfStore { get; set; }
-
-        // Υπολογιζόμενη ιδιότητα για το όνομα του τύπου καταστήματος
-        public string? TypeOfStoreName => TypeOfStore?.TypeOfStoreName;
+        // Navigation property for the related TypeOfStore entity
+        //public TypeOfStore? TypeOfStore { get; set; }
     }
+
 
 }

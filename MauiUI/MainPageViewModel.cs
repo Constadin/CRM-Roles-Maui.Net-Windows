@@ -1,5 +1,4 @@
-﻿
-using CRM.Abstractions.Interfaces;
+﻿using CRM.Abstractions.Repositories;
 using CRM.Domain.Owners.Models;
 using CRM.Infrastructure.Configuration.Services;
 using CRM.Infrastructure.Repositories;
@@ -26,7 +25,8 @@ namespace MauiUI
         private string _Email;
         private string _PhoneNumber;
         private string _VatNumber;
-        
+        private int _TypeOfStoreID;
+
         #endregion
 
         #region Public Properties
@@ -34,39 +34,43 @@ namespace MauiUI
         public ObservableCollection<Owner> Owners
         {
             get => this._Owner;
-            set => SetPropertyValue(ref this._Owner, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
+            set => this.SetPropertyValue(ref this._Owner, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
         }
         public string FirstName
         {
-            get => _FirstName;
-            set => SetPropertyValue(ref _FirstName, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
+            get => this._FirstName;
+            set => this.SetPropertyValue(ref this._FirstName, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
         }
         public string LastName
         {
-            get => _LastName;
-            set => SetPropertyValue(ref _LastName, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
+            get => this._LastName;
+            set => this.SetPropertyValue(ref this._LastName, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
         }
         public string Email
         {
-            get => _Email;
-            set => SetPropertyValue(ref _Email, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
+            get => this._Email;
+            set => this.SetPropertyValue(ref this._Email, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
         }
 
         public string PhoneNumber
         {
-            get => _PhoneNumber;
-            set => SetPropertyValue(ref _PhoneNumber, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
+            get => this._PhoneNumber;
+            set => this.SetPropertyValue(ref this._PhoneNumber, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
         }
 
         public string VatNumber
         {
-            get => _VatNumber;
-            set => SetPropertyValue(ref _VatNumber, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
+            get => this._VatNumber;
+            set => this.SetPropertyValue(ref this._VatNumber, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
+        }
+        public int TypeOfStoreID
+        {
+            get => this._TypeOfStoreID;
+            set => this.SetPropertyValue(ref this._TypeOfStoreID, value); // Ensure SetPropertyValue correctly triggers OnPropertyChanged
         }
 
-
-
         public ICommand LoadDataCommand { get; }
+        public ICommand SaveOwnerCommand { get; }
         #endregion
 
         #region Constructors
@@ -74,10 +78,13 @@ namespace MauiUI
         // Constructor that calls LoadData to load owners into the ObservableCollection
         public MainPageViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-                       
+
             this._OwnerRepository = serviceProvider.GetRequiredService<IRepositoryGRUD<Owner>>();
-            // Δημιουργία της εντολής Command με την μέθοδο LoadDataAsync
-            this.LoadDataCommand = new Command(async () => await LoadDataAsync());
+         
+            
+            this.SaveOwnerCommand = new Command(async () => await SaveOwnerAsync());
+
+            _ = this.LoadDataAsync();
 
         }
 
@@ -93,7 +100,7 @@ namespace MauiUI
                 await Task.Run(() =>
                 {
                     var ownersList = this._OwnerRepository.LoadEntities(); // Load owners
-                    Owners = new ObservableCollection<Owner>(ownersList); // Assign to the ObservableCollection
+                    this.Owners = new ObservableCollection<Owner>(ownersList); // Assign to the ObservableCollection
                 });
             }
             catch (Exception ex)
@@ -103,8 +110,38 @@ namespace MauiUI
             }
         }
 
-        #endregion
-    }
+        public async Task SaveOwnerAsync()
+        {
+           
+            try  
+            {
+                var ownerAdd = new Owner
+                {
+                    FirstName = this.FirstName,
+                    LastName = this.LastName,
+                    Email = this.Email,
+                    VatNumber = this.VatNumber,
+                    PhoneNumber = this.PhoneNumber,
+                    TypeOfStoreId = this.TypeOfStoreID,
+                };
 
+
+                // Simulate async operation or use an async SaveEntity method if available
+                await Task.Run(() =>
+                {
+                    // Save the owner using the repository
+                    this._OwnerRepository.SaveEntity(ownerAdd);
+                });
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions, e.g., logging
+                System.Diagnostics.Debug.WriteLine($"Error saving owner: {ex.Message}");
+            }
+        }
+
+    }
+    #endregion
 }
+
 

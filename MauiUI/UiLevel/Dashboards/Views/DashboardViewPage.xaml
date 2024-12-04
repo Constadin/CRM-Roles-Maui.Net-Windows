@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:MauiUI.UiLevel.Dashboards.Views"
+    xmlns:viewModel="clr-namespace:MauiUI.UiLevel.Dashboards.ViewModels"
+    x:Class="MauiUI.UiLevel.Dashboards.Views.DashboardViewPage"
+    x:DataType="viewModel:DashboardViewModel"
+    Title="Dashboard">
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <!-- Placeholder for dynamic ContentView -->
+                <ContentView Content="{Binding UserDashboardView}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+    
+</ContentPage>

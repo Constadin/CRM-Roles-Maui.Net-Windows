@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModel="clr-namespace:MauiUI.UiLevel.CallCenters.Administrator.ViewModels"
+    x:Class="MauiUI.UiLevel.CallCenters.Administrator.Views.CallCenterViewPage"
+    x:DataType="viewModel:CallCenterViewModel"
+    Title="Call Center">
+
+
+    <NavigationPage.IconColor>red</NavigationPage.IconColor>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="dotnet_bot" Text="Button1" Order="Primary" Priority="0" />
+        <ToolbarItem IconImageSource="dotnet_bot" Text="Button2" Order="Primary" Priority="1" />
+        <ToolbarItem IconImageSource="dotnet_bot" Text="Button3" Order="Primary" Priority="2" />
+        <ToolbarItem IconImageSource="dotnet_bot" Text="Button3" Order="Primary" Priority="3" />
+    </ContentPage.ToolbarItems>
+
+    <!-- Main content below the toolbar -->
+        <ScrollView Grid.Row="1">
+            <StackLayout Padding="20">
+                <Label
+                    Text="Administrator Search Calls"
+                    FontSize="24"
+                    HorizontalOptions="StartAndExpand"
+                    TextColor="Red" />
+
+                <!-- Grid layout for Filter and Search Term -->
+                <Grid
+                    ColumnDefinitions="170,170"
+                    RowDefinitions="Auto"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Center"
+                    Margin="5,20">
+                    <!-- Picker for Select Filter -->
+                    <Picker
+                        Grid.Column="0"
+                        BackgroundColor="Grey"
+                        ItemsSource="{Binding FilterOptions}"
+                        SelectedItem="{Binding SelectedFilter}"
+                        Margin="0,0,50,0"
+                        VerticalTextAlignment="End"
+                        HorizontalTextAlignment="Center" />
+
+                    <!-- Entry for typing search term -->
+                    <Entry
+                        Grid.Column="1"
+                        HeightRequest="50"
+                        BackgroundColor="Grey"
+                        Placeholder="Type here..."
+                        Text="{Binding SearchTerm}" />
+                </Grid>
+
+                <!-- CollectionView for displaying filtered calls -->
+                <CollectionView ItemsSource="{Binding FilteredCalls}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="10" Margin="5" BackgroundColor="LightGray">
+                                <Label Text="{Binding CompanyName}" FontAttributes="Bold" />
+                                <Label Text="{Binding Specialty}" />
+                                <Label Text="{Binding PhoneNumber}" />
+                                <Label Text="{Binding Email}" />
+                                <Label Text="{Binding AdminName}" />
+                                <Label Text="{Binding Address}" />
+                                <Label Text="{Binding PostalCode}" />
+                                <Label Text="{Binding City}" />
+                                <Label Text="{Binding Country}" />
+                                <Label Text="{Binding SerialNumber}" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+
+</ContentPage>

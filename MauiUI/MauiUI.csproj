@@ -72,14 +72,27 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Pages\Initializer\ViewModels\" />
-	  <Folder Include="Pages\Initializer\Views\" />
-	  <Folder Include="Pages\Main\ViewModels\" />
-	  <Folder Include="Pages\Main\Views\" />
+	  <Folder Include="Main\MainMenuNavi\ViewModels\" />
+	  <Folder Include="Main\MainMenuNavi\Views\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\Login\Views\LoginViewPage.xaml">
+	  <MauiXaml Update="UiLevel\CallCenters\Administrator\Views\CallCenterViewPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UiLevel\Dashboards\Views\DashboardAdminMicroservicesListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UiLevel\Dashboards\Views\DashboardAdminView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UiLevel\Dashboards\Views\DashboardViewPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Main\Initializer\Views\InitializerViewPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Main\Login\Views\LoginViewPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

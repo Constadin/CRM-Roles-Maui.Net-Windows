@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MauiUI.UiLevel.Dashboards.Views.DashboardAdminMicroservicesListView"
+    xmlns:viewModel="clr-namespace:MauiUI.UiLevel.Dashboards.ViewModels"
+    x:DataType="viewModel:DashboardViewModel">
+    
+ 
+        <Frame
+            BackgroundColor="{Binding ColorOfService}"
+            CornerRadius="10"
+            HasShadow="True"
+            Padding="20"
+            WidthRequest="245"
+            HeightRequest="150"
+            Margin="5">
+            <StackLayout
+                VerticalOptions="CenterAndExpand">
+                <Label
+                    Text="{Binding NameOfService}"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    TextColor="Black" />
+                <Button
+                    Text="{Binding IsEnableService}"
+                    BackgroundColor="Green"
+                    TextColor="White"
+                    Margin="5" 
+                    Command="{Binding GoToService}"/>
+            </StackLayout>
+        </Frame>
+
+</ContentView>

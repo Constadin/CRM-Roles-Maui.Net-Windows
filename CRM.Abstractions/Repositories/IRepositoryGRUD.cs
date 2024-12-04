@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CRM.Abstractions.Interfaces
+namespace CRM.Abstractions.Repositories
 {
     public interface IRepositoryGRUD<T> where T : class
     {

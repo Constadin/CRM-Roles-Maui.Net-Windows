@@ -5,8 +5,15 @@ using Microsoft.Extensions.Logging; // Εισάγει την υποστήριξ�
 using Prism; // Εισάγει τη βιβλιοθήκη Prism για την υποστήριξη MVVM.
 using Prism.Navigation; // Εισάγει τις λειτουργίες πλοήγησης της Prism.
 using DevExpress.Maui;
-using MauiUI.Pages.Login.Views;
-using MauiUI.Pages.Login.ViewModels;
+using MauiUI.Main.Login.Views;
+using MauiUI.Main.Login.ViewModels;
+using MauiUI.Main.Initializer.Views;
+using MauiUI.Main.Initializer.ViewModels;
+using MauiUI.UiLevel.CallCenters.Administrator.ViewModels;
+using MauiUI.UiLevel.CallCenters.Administrator.Views;
+using MauiUI.UiLevel.Dashboards.Views;
+using MauiUI.UiLevel.Dashboards.ViewModels;
+
 
 
 namespace MauiUI
@@ -28,7 +35,10 @@ namespace MauiUI
                             .RegisterUiServices() // Καταχωρεί τις υπηρεσίες UI.
 
                             .RegisterForNavigation<MainPage>()
-                            .RegisterForNavigation<LoginViewPage, LoginViewModel>();
+                            .RegisterForNavigation<LoginViewPage, LoginViewModel>()
+                            .RegisterForNavigation<InitializerViewPage, InitializerViewModel>()
+                            .RegisterForNavigation<CallCenterViewPage, CallCenterViewModel>()
+                            .RegisterForNavigation<DashboardViewPage, DashboardViewModel>();
                     });
 
                     prismBuilder.CreateWindow(async (navigation) => // Δημιουργεί ένα παράθυρο και διαχειρίζεται την πλοήγηση.

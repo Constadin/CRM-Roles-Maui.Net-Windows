@@ -1,7 +1,9 @@
-﻿using CRM.Abstractions.Interfaces;
+﻿using CRM.Abstractions.Repositories;
+using CRM.Abstractions.Services;
 using CRM.Domain.Owners.Models;
 using CRM.Infrastructure.Configuration.Services;
 using CRM.Infrastructure.Repositories;
+using CRM.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,10 @@ namespace MauiUI
         { 
             services.AddSingleton<IDatabaseConnectionProvider, DatabaseConnectionProvider>();
             services.AddSingleton<IRepositoryGRUD<Owner>, OwnerRepositoryGRUD>();
+            services.AddSingleton<IAuthenticateService, AuthenticateService>();
+            services.AddSingleton<ILoginService, LoginService>();
+            services.AddSingleton<IRoleService, RoleService>();
+            services.AddSingleton<IDateTimeService, DateTimeService>();
             return services; // Επιστρέφει το IServiceCollection για αλυσίδωτες κλήσεις.
         }
 
@@ -24,6 +30,10 @@ namespace MauiUI
 
             containerRegistry.RegisterSingleton<IDatabaseConnectionProvider, DatabaseConnectionProvider>();
             containerRegistry.RegisterSingleton<IRepositoryGRUD<Owner>, OwnerRepositoryGRUD>();
+            containerRegistry.RegisterSingleton<IAuthenticateService, AuthenticateService>();
+            containerRegistry.RegisterSingleton<ILoginService, LoginService>();
+            containerRegistry.RegisterSingleton<IRoleService, RoleService>();
+            containerRegistry.RegisterSingleton<IDateTimeService, DateTimeService>();
 
             return containerRegistry; // Επιστρέφει το IContainerRegistry για αλυσίδωτες κλήσεις.
         }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<FlyoutPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    FlyoutLayoutBehavior="Popover"
+    xmlns:main="clr-namespace:MauiUI.Main.MainMenuNavi.Views"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Maui"
+    xmlns:dx="http://schemas.devexpress.com/maui"
+    xmlns:viewModel="clr-namespace:MauiUI.Main.MainMenuNavi.ViewModels"
+    x:Class="MauiUI.Main.MainMenuNavi.Views.MainMenuHubView"
+    x:DataType="viewModel:MainMenuViewModel"
+    BackgroundColor="#0077B6">
+
+    <!-- Flyout Side Menu -->
+    <FlyoutPage.Flyout>
+        <ContentPage
+            Title="Flyout"
+            BackgroundColor="#0077B6">
+            <Grid
+                Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- For the Label -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- For the CollectionView -->
+                </Grid.RowDefinitions>
+
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="CRM App"
+                    Padding="27,0,0,10"
+                    FontSize="23"
+                    FontAttributes="Bold"
+                    TextColor="Aqua"/>
+
+                <!-- Navigation items -->
+                <CollectionView
+                        Grid.Row="1"
+                        ItemsSource="{Binding MenuItemBtnList}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <main:MenuItemBtnListView
+                                    HorizontalOptions="Start"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </ContentPage>
+    </FlyoutPage.Flyout>
+
+    <!-- Detail Page -->
+    <FlyoutPage.Detail>
+        <NavigationPage >
+            <x:Arguments>
+                <ContentPage>
+                    <!-- Content Here -->
+                </ContentPage>
+            </x:Arguments>
+        </NavigationPage>
+    </FlyoutPage.Detail>
+</FlyoutPage>
+

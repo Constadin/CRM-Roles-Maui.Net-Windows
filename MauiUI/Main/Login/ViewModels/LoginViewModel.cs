@@ -65,7 +65,7 @@ namespace MauiUI.Main.Login.ViewModels
 
         private async Task NavigateToInitializer(string role) // Ιδιωτική μέθοδος πλοήγησης στη σελίδα εκκίνησης.
         {
-            await NavigationService.NavigateAsync($"InitializerViewPage?role={role}"); // Πλοήγηση στην InitializerViewPage.
+            await NavigationService.NavigateAsync("InitializerViewPage"); // Πλοήγηση στην InitializerViewPage.
         }
         #endregion
     }

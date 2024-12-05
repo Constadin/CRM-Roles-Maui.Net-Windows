@@ -5,17 +5,19 @@
     xmlns:viewModel="clr-namespace:MauiUI.Main.Initializer.ViewModels"
     x:DataType="viewModel:InitializerViewModel"
     x:Class="MauiUI.Main.Initializer.Views.InitializerViewPage"
-    Title="Initializer" BackgroundColor="Black">
+    BackgroundColor="#0077B6"
+    Title="Initializer">
 
     <Grid
+        BackgroundColor="#0077B6"
         Padding="20"
         VerticalOptions="StartAndExpand"
         HorizontalOptions="Center"
-        Margin="0,80,0,0">  
+        Margin="0,120,0,0">  
         <!-- Progress Indicator -->
         <ActivityIndicator
             IsRunning="{Binding IsBusy}" 
-            Color="Aqua"
+            Color="White"
             VerticalOptions="Start" 
             HorizontalOptions="Center" />
 
@@ -26,7 +28,7 @@
             <Label
                 Text="{Binding StatusMessage}" 
                 FontSize="Medium" 
-                TextColor="Aqua"
+                TextColor="White"
                 HorizontalTextAlignment="Center" 
                 Margin="0,50,0,0"/>
         </StackLayout>

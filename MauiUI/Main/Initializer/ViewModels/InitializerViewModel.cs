@@ -104,7 +104,7 @@ namespace MauiUI.Main.Initializer.ViewModels
             }
             await Task.Delay(2000); // Προσομοίωση καθυστέρησης πριν την πλοήγηση
             // Πλοήγηση στη MainHubView μετά από επιτυχημένη εκκίνηση
-            await NavigationService.NavigateAsync("DashboardViewPage");
+            await NavigationService.NavigateAsync("MainMenuHubView");
         }
 
         // Μέθοδος για πλοήγηση στη σελίδα σύνδεσης

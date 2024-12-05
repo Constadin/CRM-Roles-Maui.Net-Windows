@@ -13,6 +13,9 @@ using MauiUI.UiLevel.CallCenters.Administrator.ViewModels;
 using MauiUI.UiLevel.CallCenters.Administrator.Views;
 using MauiUI.UiLevel.Dashboards.Views;
 using MauiUI.UiLevel.Dashboards.ViewModels;
+using MauiUI.Main.MainMenuNavi.Views;
+using MauiUI.Main.MainMenuNavi.ViewModels;
+
 
 
 
@@ -34,11 +37,12 @@ namespace MauiUI
                         registry
                             .RegisterUiServices() // Καταχωρεί τις υπηρεσίες UI.
 
-                            .RegisterForNavigation<MainPage>()
-                            .RegisterForNavigation<LoginViewPage, LoginViewModel>()
                             .RegisterForNavigation<InitializerViewPage, InitializerViewModel>()
+                            .RegisterForNavigation<LoginViewPage, LoginViewModel>()
+                            .RegisterForNavigation<MainMenuHubView, MainMenuViewModel>()
+                            .RegisterForNavigation<DashboardViewPage, DashboardViewModel>()
                             .RegisterForNavigation<CallCenterViewPage, CallCenterViewModel>()
-                            .RegisterForNavigation<DashboardViewPage, DashboardViewModel>();
+                            .RegisterForNavigation<MainPage>();
                     });
 
                     prismBuilder.CreateWindow(async (navigation) => // Δημιουργεί ένα παράθυρο και διαχειρίζεται την πλοήγηση.

@@ -72,11 +72,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Main\MainMenuNavi\ViewModels\" />
-	  <Folder Include="Main\MainMenuNavi\Views\" />
-	</ItemGroup>
-
-	<ItemGroup>
+	  <MauiXaml Update="Main\MainMenuNavi\Views\MainMenuHubView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Main\MainMenuNavi\Views\MenuItemBtnListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="UiLevel\CallCenters\Administrator\Views\CallCenterViewPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -1,4 +1,5 @@
 ﻿using CRM.Abstractions.Services;
+using CRM.Domain;
 using MauiUI.Helpers.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace MauiUI.Main.MainMenuNavi.ViewModels
     {
         #region Private Fields
         private readonly IRoleService _RoleService;
+        private readonly IAuthorizationService _AuthorizationService;
 
         #endregion
 
@@ -21,6 +23,7 @@ namespace MauiUI.Main.MainMenuNavi.ViewModels
         public MainMenuViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this._RoleService = serviceProvider.GetRequiredService<IRoleService>();
+            this._AuthorizationService = serviceProvider.GetRequiredService<IAuthorizationService>();
 
             // Ρύθμιση της αρχικής σελίδας με βάση τον ρόλο            
 
@@ -39,56 +42,55 @@ namespace MauiUI.Main.MainMenuNavi.ViewModels
         #endregion
 
         #region Private Mathods
-        private async void SetInitialPageAsync()
+        private async Task SetInitialPageAsync()
         {
             string? role = this._RoleService.CurrentRole;
 
             this.MenuItemBtnList.Clear();
 
-
-            if (role == "Administrator")
+            if (role != null)
             {
-                await this.NavigationService.NavigateAsync("NavigationPage/DashboardViewPage");
-
-                MenuItemBtnList.Add(new MenuItemViewModel()
+                if (role == "Administrator")
                 {
-                    Title = "Call Center",
-                    Command = new DelegateCommand(async () => await OnNavigateAsync("CallCenterViewPage"))
-                });
-
-                MenuItemBtnList.Add(new MenuItemViewModel()
+                    await this.NavigationService.NavigateAsync("NavigationPage/DashboardViewPage");
+                }
+                else if (role == "Dentist")
                 {
-                    Title = "Companies",
-                    Command = new DelegateCommand(async () => await OnNavigateAsync("MainPage"))
-                });
+                    await this.NavigationService.NavigateAsync("NavigationPage/MainPage");
+                }
+                else if (role == "Ophthalmologist")
+                {
+                    await this.NavigationService.NavigateAsync("NavigationPage/CallCenterViewPage");
+                }
 
-                MenuItemBtnList.Add(new MenuItemViewModel
+                foreach (var menuItem in MenuItems.Items)
+                {
+                    // Ελέγχουμε αν ο χρήστης έχει πρόσβαση
+                    if (await this._AuthorizationService.CanAccessPageAsync(role, menuItem.PageKey))
+                    {
+
+                        MenuItemBtnList.Add(new MenuItemViewModel()
+                        {
+                            Title = menuItem.Title,
+                            Command = new DelegateCommand(async () => await OnNavigateAsync(menuItem.PageKey))
+                        });
+                    }
+                }
+
+                // Πάντα προστίθεται το κουμπί Log out
+                MenuItemBtnList.Add(new MenuItemViewModel()
                 {
                     Title = "Log out",
                     Command = new DelegateCommand(async () => await OnNavigateAsync("LoginViewPage"))
                 });
-
-
-            }
-            else if (role == "dentist")
-            {
-
-            }
-            else if (role == "ophthalmologist")
-            {
-                //await this.NavigationService.NavigateAsync("NavigationPage/MainPage");
-            }
-            else
-            {
-                //await NavigationService.NavigateAsync("LoginViewPage");
             }
         }
 
         private async Task OnNavigateAsync(string pageKey)
-        {       
+        {
             try
-            {   
-                if(pageKey == "LoginViewPage")
+            {
+                if (pageKey == "LoginViewPage")
                 {
                     await NavigationService.NavigateAsync("LoginViewPage");
 
@@ -99,7 +101,7 @@ namespace MauiUI.Main.MainMenuNavi.ViewModels
                     await NavigationService.NavigateAsync($"NavigationPage/{pageKey}");
                 }
 
-                
+
             }
             catch (Exception ex)
             {

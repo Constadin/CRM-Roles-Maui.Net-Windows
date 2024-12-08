@@ -5,7 +5,7 @@
     xmlns:viewModel="clr-namespace:MauiUI"
     x:Class="MauiUI.MainPage"
     x:DataType="viewModel:MainPageViewModel"
-    Title="Main">
+    Title="Companies">
 
     <ScrollView>
         <!-- Define CollectionView to display Owners list -->

@@ -46,7 +46,7 @@ namespace MauiUI.Main.Initializer.ViewModels
 
         #region Handlers
         // Event για την ειδοποίηση ολοκλήρωσης εκκίνησης
-        public event EventHandler InitializationCompleted;
+        //public event EventHandler InitializationCompleted;
 
         #endregion
 
@@ -94,12 +94,6 @@ namespace MauiUI.Main.Initializer.ViewModels
 
                 this.StatusMessage = "Initialization complete! You are now being redirected."; // Μήνυμα ολοκλήρωσης εκκίνησης
             }
-            catch (OperationCanceledException)
-            {
-                this.StatusMessage = "Initialization was canceled by the user."; // Μήνυμα ακύρωσης εκκίνησης
-                await NavigateToLoginPage(); // Πλοήγηση στη σελίδα σύνδεσης
-                return; // Έξοδος αν ακυρωθεί
-            }
             catch (Exception ex) // Επεξεργασία άλλων εξαιρέσεων
             {
                 this.StatusMessage = $"Initialization failed: {ex.Message}. Returning to login."; // Μήνυμα σφάλματος εκκίνησης
@@ -111,7 +105,7 @@ namespace MauiUI.Main.Initializer.ViewModels
             finally
             {
                 this.IsBusy = false; // Θέτει την κατάσταση ως μη απασχολημένη
-                InitializationCompleted?.Invoke(this, EventArgs.Empty); // Ειδοποίηση ολοκλήρωσης εκκίνησης
+                //InitializationCompleted?.Invoke(this, EventArgs.Empty); // Ειδοποίηση ολοκλήρωσης εκκίνησης
             }
             await Task.Delay(2000); // Προσομοίωση καθυστέρησης πριν την πλοήγηση
             // Πλοήγηση στη MainHubView μετά από επιτυχημένη εκκίνηση

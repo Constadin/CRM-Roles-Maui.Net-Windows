@@ -22,6 +22,7 @@ namespace MauiUI
             services.AddSingleton<ILoginService, LoginService>();
             services.AddSingleton<IRoleService, RoleService>();
             services.AddSingleton<IDateTimeService, DateTimeService>();
+            services.AddSingleton<IAuthorizationService, AuthorizationService>();
             return services; // Επιστρέφει το IServiceCollection για αλυσίδωτες κλήσεις.
         }
 
@@ -34,7 +35,7 @@ namespace MauiUI
             containerRegistry.RegisterSingleton<ILoginService, LoginService>();
             containerRegistry.RegisterSingleton<IRoleService, RoleService>();
             containerRegistry.RegisterSingleton<IDateTimeService, DateTimeService>();
-
+            containerRegistry.RegisterSingleton<IAuthorizationService, AuthorizationService>();
             return containerRegistry; // Επιστρέφει το IContainerRegistry για αλυσίδωτες κλήσεις.
         }
     }

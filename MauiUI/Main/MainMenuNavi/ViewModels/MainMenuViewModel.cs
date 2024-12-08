@@ -12,10 +12,12 @@ namespace MauiUI.Main.MainMenuNavi.ViewModels
 {
     public class MainMenuViewModel : BaseViewModel
     {
+        #region Private Fields
         private readonly IRoleService _RoleService;
-        public ObservableCollection<MenuItemViewModel> MenuItemBtnList { get; } = new ObservableCollection<MenuItemViewModel>();
 
-        // Κατασκευαστής
+        #endregion
+
+        #region Constractor
         public MainMenuViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this._RoleService = serviceProvider.GetRequiredService<IRoleService>();
@@ -27,9 +29,16 @@ namespace MauiUI.Main.MainMenuNavi.ViewModels
             this.NavigateCommand = new DelegateCommand<string>(async (pageKey) => await OnNavigateAsync(pageKey));
         }
 
+        #endregion
+
+        #region  Public Properties
         // Εντολή πλοήγησης
         public DelegateCommand<string> NavigateCommand { get; }
+        public ObservableCollection<MenuItemViewModel> MenuItemBtnList { get; } = new ObservableCollection<MenuItemViewModel>();
 
+        #endregion
+
+        #region Private Mathods
         private async void SetInitialPageAsync()
         {
             string? role = this._RoleService.CurrentRole;
@@ -97,5 +106,7 @@ namespace MauiUI.Main.MainMenuNavi.ViewModels
                 Debug.WriteLine($"Error during navigation: {ex.Message}");
             }
         }
+
+        #endregion
     }
 }

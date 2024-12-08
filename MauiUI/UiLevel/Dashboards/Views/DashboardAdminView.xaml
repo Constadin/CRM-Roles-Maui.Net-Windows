@@ -54,23 +54,18 @@
                         TextColor="Red"
                         VerticalTextAlignment="Center" />
                     <Label
-                        Text="Help Desk"
-                        FontSize="18"
-                        TextColor="Gray"
-                        VerticalTextAlignment="Center" />
-                    <Label
                         Text="{Binding CurrentDateTime}"
                         FontSize="15"
                         TextColor="Grey"
                         VerticalTextAlignment="Center"
-                        Margin="20,0"/>
+                        Margin="50,0"/>
                 </StackLayout>
 
 
                 <!-- Center Section -->
                 <Entry
                     Grid.Column="1"
-                    HorizontalOptions="Start"
+                    HorizontalOptions="StartAndExpand"
                     Placeholder="Search"
                     BackgroundColor="#333"
                     TextColor="White"

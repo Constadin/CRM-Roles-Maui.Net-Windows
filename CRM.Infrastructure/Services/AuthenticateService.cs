@@ -1,32 +1,55 @@
 ﻿using CRM.Abstractions.Services;
+using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SQLite;
 
 namespace CRM.Infrastructure.Services
 {
     public class AuthenticateService : IAuthenticateService
     {
+        #region Private Fields
+
+        private readonly IDatabaseConnectionProvider _DatabaseConnectionProvider;
+
+        #endregion
+
+        public AuthenticateService(IDatabaseConnectionProvider databaseConnectionProvider)
+        {
+            this._DatabaseConnectionProvider = databaseConnectionProvider;
+        }
+
+
         public async Task<string?> AuthenticateAsync(string username, string password)
         {
-            // Προσομοίωση βάσης δεδομένων (θα πρέπει να αντικατασταθεί με πραγματική σύνδεση)
-            var users = new Dictionary<string, (string Password, string Role)>
+            try
             {
-                { "admin", ("123", "Administrator") },
-                { "user", ("123", "User") }
-            };
+                using (IDbConnection cnn = new SQLiteConnection(this._DatabaseConnectionProvider.GetConnectionString()))
+                {
+                    
+                    // Ερώτηση SQL με Dapper και χρήση παραμέτρων
+                    var query = @"
+                        SELECT ts.TypeOfStoreName 
+                        FROM Owners ow
+                        INNER JOIN TypeOfStores ts ON ow.TypeOfStoreID = ts.TypeOfStoreID
+                        WHERE ow.Username = @Username AND ow.Password = @Password";
 
-            // Έλεγχος αν υπάρχει ο χρήστης
-            if (users.TryGetValue(username, out var userInfo) && userInfo.Password == password)
-            {
-                // Επιστροφή του ρόλου
+                    // Εκτέλεση με Dapper
+                    var storeName = await cnn.QueryFirstOrDefaultAsync<string>(query, new { Username = username, Password = password });
 
-                return userInfo.Role;
+                    return storeName; // Επιστροφή  κατηγορίας του καταστήματος αν βρεθεί
+                }
             }
-
-            return null; // Αν ο χρήστης δεν βρεθεί ή το password είναι λάθος
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Σφάλμα κατά την αυθεντικοποίηση: {ex.Message}");
+                return null;
+            }
         }
+
     }
 }

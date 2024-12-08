@@ -9,33 +9,32 @@ namespace CRM.Abstractions.Repositories
     public interface IRepositoryGRUD<T> where T : class
     {
         /// <summary>
-        /// Loads a list of all entities of type T from the database.
-        /// This method retrieves all records of type T from the corresponding table.
+        /// Φορτώνει μια λίστα με όλες τις οντότητες τύπου T από τη βάση δεδομένων.
+        /// Αυτή η μέθοδος ανακτά όλες τις εγγραφές τύπου T από τον αντίστοιχο πίνακα.
         /// </summary>
-        /// <returns>A list of entities of type T.</returns>
+        /// <returns>Μια λίστα οντοτήτων τύπου T.</returns>
         List<T> LoadEntities();
 
         /// <summary>
-        /// Saves a new entity of type T to the database.
-        /// This method inserts the provided entity into the corresponding table.
+        /// Αποθηκεύει μια νέα οντότητα τύπου T στη βάση δεδομένων.
+        /// Αυτή η μέθοδος εισάγει την παρεχόμενη οντότητα στον αντίστοιχο πίνακα.
         /// </summary>
-        /// <param name="entity">The entity of type T to be saved.</param>
+        /// <param name="entity">Η οντότητα τύπου T που θα αποθηκευτεί.</param>
         void SaveEntity(T entity);
 
         /// <summary>
-        /// Updates an existing entity of type T in the database.
-        /// This method modifies the values of an entity in the database based on the provided entity.
-        /// It assumes the entity contains an identifier (e.g., Id) for locating the existing record.
+        /// Ενημερώνει μια υπάρχουσα οντότητα τύπου T στη βάση δεδομένων.
+        /// Αυτή η μέθοδος τροποποιεί τις τιμές μιας οντότητας στη βάση δεδομένων βάσει της παρεχόμενης οντότητας.
+        /// Υποθέτει ότι η οντότητα περιέχει έναν ταυτοποιητή (π.χ. Id) για τον εντοπισμό της υπάρχουσας εγγραφής.
         /// </summary>
-        /// <param name="entity">The entity of type T to be updated.</param>
+        /// <param name="entity">Η οντότητα τύπου T που θα ενημερωθεί.</param>
         void UpdateEntity(T entity);
 
         /// <summary>
-        /// Deletes an entity of type T from the database based on its Id.
-        /// This method removes the record that matches the provided Id from the corresponding table.
+        /// Διαγράφει μια οντότητα τύπου T από τη βάση δεδομένων βάσει του Id της.
+        /// Αυτή η μέθοδος αφαιρεί την εγγραφή που αντιστοιχεί στο παρεχόμενο Id από τον αντίστοιχο πίνακα.
         /// </summary>
-        /// <param name="id">The identifier (Id) of the entity to be deleted.</param>
+        /// <param name="id">Ο ταυτοποιητής (Id) της οντότητας που θα διαγραφεί.</param>
         void DeleteEntity(int id);
     }
-
 }

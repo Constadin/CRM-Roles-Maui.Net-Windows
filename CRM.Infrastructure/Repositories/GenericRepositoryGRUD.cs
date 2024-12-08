@@ -14,13 +14,13 @@ namespace CRM.Infrastructure.Repositories
 {
     public class GenericRepositoryGRUD<T> : IRepositoryGRUD<T> where T : class
     {
-        #region Private Filelds
+        #region Private Fields
 
         private readonly IDatabaseConnectionProvider _DatabaseConnectionProvider;
 
         #endregion
 
-        #region Constructors
+        #region Constractors
         public GenericRepositoryGRUD(IServiceProvider serviceProvider)
         {
             this._DatabaseConnectionProvider = serviceProvider.GetRequiredService<IDatabaseConnectionProvider>();
@@ -29,13 +29,13 @@ namespace CRM.Infrastructure.Repositories
 
         #region Public methods
 
-        // Method to Load an entity of type T
+        // Μέθοδος για φόρτωση οντοτήτων τύπου T
         public List<T> LoadEntities()
         {
             using (IDbConnection cnn = new SQLiteConnection(this._DatabaseConnectionProvider.GetConnectionString()))
             {
-                // Dynamically get the table name based on the type of T
-                var tableName = typeof(T).Name + "s"; // Assume plural table names
+                // Δυναμικός προσδιορισμός του ονόματος του πίνακα βάσει του τύπου T
+                var tableName = typeof(T).Name + "s"; // Υποθέτουμε πληθυντικά ονόματα πινάκων
 
                 var query = $"SELECT * FROM {tableName}";
 
@@ -45,14 +45,14 @@ namespace CRM.Infrastructure.Repositories
             }
         }
 
-        // Method to Save an entity of type T
+        // Μέθοδος για αποθήκευση οντοτήτων τύπου T
         public void SaveEntity(T entity)
         {
             using (IDbConnection cnn = new SQLiteConnection(this._DatabaseConnectionProvider.GetConnectionString()))
             {
-                // Dynamically generate the insert statement for the entity based on its properties
-                var tableName = typeof(T).Name + "s"; // Assume plural table names
-                                                      // Generate the query dynamically
+                // Δυναμική δημιουργία της δήλωσης εισαγωγής για την οντότητα βάσει των ιδιοτήτων της
+                var tableName = typeof(T).Name + "s"; // Υποθέτουμε πληθυντικά ονόματα πινάκων
+
                 var properties = typeof(T).GetProperties().Where(p => p.Name != "OwnerId");
 
                 var columns = string.Join(", ", properties.Select(p => p.Name));
@@ -65,28 +65,28 @@ namespace CRM.Infrastructure.Repositories
             }
         }
 
-        // Method to Update an entity of type T
+        // Μέθοδος για ενημέρωση οντοτήτων τύπου T
         public void UpdateEntity(T entity)
         {
             using (IDbConnection cnn = new SQLiteConnection(this._DatabaseConnectionProvider.GetConnectionString()))
             {
-                var tableName = typeof(T).Name + "s";  // Assuming plural table names
+                var tableName = typeof(T).Name + "s";  // Υποθέτουμε πληθυντικά ονόματα πινάκων
 
                 var setClause = string.Join(", ", typeof(T).GetProperties().Select(p => $"{p.Name} = @{p.Name}"));
 
-                // Assuming the entity has an Id property for identifying the record to update
+                // Υποθέτουμε ότι η οντότητα διαθέτει ιδιότητα Id για την ταυτοποίηση της εγγραφής προς ενημέρωση
                 var query = $"UPDATE {tableName} SET {setClause} WHERE Id = @Id";
 
                 cnn.Execute(query, entity);
             }
         }
 
-        // Method to Delete an entity of type T by its Id
+        // Μέθοδος για διαγραφή οντοτήτων τύπου T βάσει του Id
         public void DeleteEntity(int id)
         {
             using (IDbConnection cnn = new SQLiteConnection(this._DatabaseConnectionProvider.GetConnectionString()))
             {
-                var tableName = typeof(T).Name + "s";  // Assuming plural table names
+                var tableName = typeof(T).Name + "s";  // Υποθέτουμε πληθυντικά ονόματα πινάκων
 
                 var query = $"DELETE FROM {tableName} WHERE Id = @Id";
 

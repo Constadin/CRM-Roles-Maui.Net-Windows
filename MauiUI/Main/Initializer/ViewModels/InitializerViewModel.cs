@@ -13,10 +13,15 @@ namespace MauiUI.Main.Initializer.ViewModels
 {
     public class InitializerViewModel : BaseViewModel // Κλάση για το ViewModel εκκίνησης
     {
+
+        #region Private Fields
+
         private bool _IsBusy; // Ιδιότητα για την κατάσταση απασχόλησης
         private string _StatusMessage; // Ιδιότητα για το μήνυμα κατάστασης
         private readonly IRoleService _RoleService; // Υπηρεσία ρόλων
+        #endregion
 
+        #region Public Properties
         public bool IsBusy // Ιδιότητα για την κατάσταση απασχόλησης με ειδοποίηση αλλαγής
         {
             get => this._IsBusy; // Επιστρέφει την κατάσταση απασχόλησης
@@ -37,9 +42,15 @@ namespace MauiUI.Main.Initializer.ViewModels
             _ = InitializeApplicationAsync(); // Εκκίνηση της διαδικασίας εκκίνησης της εφαρμογής
         }
 
+        #endregion
+
+        #region Handlers
         // Event για την ειδοποίηση ολοκλήρωσης εκκίνησης
         public event EventHandler InitializationCompleted;
 
+        #endregion
+
+        #region Private methods
         private async Task InitializeApplicationAsync() // Ασύγχρονη μέθοδος εκκίνησης
         {
             try
@@ -112,5 +123,7 @@ namespace MauiUI.Main.Initializer.ViewModels
         {
             await NavigationService.NavigateAsync("LoginViewPage"); // Πλοήγηση στη LoginViewPage
         }
+
+        #endregion
     }
 }

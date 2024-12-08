@@ -2,55 +2,61 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace CRM.Infrastructure.Configuration.Services
 {
     public class DatabaseConnectionProvider : IDatabaseConnectionProvider
     {
-        private readonly string? _ConnectionString;
+        private readonly string _ConnectionString;
+        private readonly ILogger<DatabaseConnectionProvider> _logger;
 
-        public DatabaseConnectionProvider()
+        public DatabaseConnectionProvider(ILogger<DatabaseConnectionProvider> logger)
         {
-            // Load the appsettings.json configuration
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .Build();
+            this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-            // Read the relative connection string path from appsettings.json
-            var relativePath = configuration["AppSettings:ConnectionString"];
-
-            if (string.IsNullOrWhiteSpace(relativePath))
+            try
             {
-                throw new InvalidOperationException("Το ConnectionString είναι κενό.");
+                // Φόρτωση του αρχείου διαμόρφωσης appsettings.json
+                var configuration = LoadConfiguration();
+                var relativePath = configuration["AppSettings:ConnectionString"];
+
+                if (string.IsNullOrWhiteSpace(relativePath))
+                {
+                    throw new InvalidOperationException("Η ρύθμιση AppSettings:ConnectionString στο appsettings.json είναι κενή.");
+                }
+
+                var basePath = AppDomain.CurrentDomain.BaseDirectory;
+                var dbPath = Path.Combine(basePath, relativePath);
+
+                if (!File.Exists(dbPath))
+                {
+                    this._logger.LogInformation($"Το αρχείο της βάσης δεδομένων δεν υπάρχει στη διαδρομή: {dbPath}. Θα προσπαθήσουμε να το δημιουργήσουμε.");
+                    Directory.CreateDirectory(Path.GetDirectoryName(dbPath)!);
+                    File.Create(dbPath).Dispose(); // Δημιουργία του αρχείου
+                }
+
+                this._ConnectionString = $"Data Source={dbPath}";
             }
-
-            // Combine the runtime output path with the relative database path
-            var runtimeBasePath = AppDomain.CurrentDomain.BaseDirectory;
-            var dbPath = Path.Combine(runtimeBasePath, relativePath);
-
-            // Ensure the database file exists
-            if (!File.Exists(dbPath))
+            catch (Exception ex)
             {
-                throw new FileNotFoundException($"The database file does not exist at the specified path: {dbPath}");
+                this._logger.LogError(ex, "Σφάλμα κατά τη δημιουργία του connection string.");
+                throw;
             }
-            // Set the SQLite connection string
-            this._ConnectionString = $"Data Source={dbPath}";
         }
 
         public string GetConnectionString()
         {
-            if (this._ConnectionString == null)
-            {
-                throw new InvalidOperationException("Connection string is not set.");
-            }
-
             return this._ConnectionString;
         }
 
+        private IConfiguration LoadConfiguration()
+        {
+            // Φορτώνουμε το αρχείο appsettings.json
+            return new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+        }
     }
 }

@@ -7,24 +7,25 @@ using System.Threading.Tasks;
 namespace CRM.Infrastructure.Services
 {
     using CRM.Abstractions.Services;
-    using System;
 
     public class DateTimeService : IDateTimeService
     {
+        // Επιστρέφει την τρέχουσα ημερομηνία και ώρα
         public DateTime GetCurrentDateTime()
         {
-            return DateTime.Now; // Returns current date and time
+            return DateTime.Now;
         }
 
+        // Επιστρέφει μόνο την τρέχουσα ημερομηνία
         public DateTime GetCurrentDate()
         {
-            return DateTime.Now.Date; // Returns only the date
+            return DateTime.Now.Date;
         }
 
+        // Επιστρέφει μόνο την τρέχουσα ώρα
         public TimeSpan GetCurrentTime()
         {
-            return DateTime.Now.TimeOfDay; // Returns only the time
+            return DateTime.Now.TimeOfDay;
         }
     }
-
 }

@@ -13,12 +13,13 @@ namespace CRM.Infrastructure.Services
 
         public LoginService(IAuthenticateService authenticateService)
         {
+            // Αρχικοποίηση της υπηρεσίας αυθεντικοποίησης
             this._AuthenticateService = authenticateService;
         }
 
         public async Task<string?> LoginAsync(string username, string password)
         {
-            // Κλήση της υπηρεσίας αυθεντικοποίησης
+            // Κλήση της υπηρεσίας αυθεντικοποίησης για έλεγχο των διαπιστευτηρίων
             return await this._AuthenticateService.AuthenticateAsync(username, password);
         }
     }

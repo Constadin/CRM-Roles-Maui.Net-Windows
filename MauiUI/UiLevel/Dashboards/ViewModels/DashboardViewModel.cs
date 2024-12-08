@@ -15,12 +15,10 @@ namespace MauiUI.UiLevel.Dashboards.ViewModels
     public class DashboardViewModel : BaseViewModel
     {
         #region Private Fields
-        // Property to hold the user dashboard view content
         private ContentView _UserDashboardView;
         private readonly IRoleService _RoleService;
         private readonly IDateTimeService _DateTimeService;
         private string _CurrentDateTime;
-
         #endregion
 
         #region Public Fields        
@@ -30,21 +28,21 @@ namespace MauiUI.UiLevel.Dashboards.ViewModels
         public Command? _GoToService;
         #endregion
 
-        #region Constractors
+        #region Constructors
         public DashboardViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this._RoleService = serviceProvider.GetRequiredService<IRoleService>();
             this._UserDashboardView = new ContentView();
             this._DateTimeService = serviceProvider.GetRequiredService<IDateTimeService>();
-            this.MicroServicesList = new ObservableCollection<MicroServices>();     
-            this.LoadServices(); // Call the method to load services
+            this.MicroServicesList = new ObservableCollection<MicroServices>();
+            this.LoadServices(); // Κλήση για φόρτωση υπηρεσιών
             this.LoadUserDashboard();
         }
-
         #endregion
 
         #region Public Properties
         public ObservableCollection<MicroServices> MicroServicesList { get; set; }
+
         public ContentView UserDashboardView
         {
             get => _UserDashboardView;
@@ -68,6 +66,7 @@ namespace MauiUI.UiLevel.Dashboards.ViewModels
             get => _IsEnableService;
             set => SetPropertyValue(ref _IsEnableService, value);
         }
+
         public Command? GoToService
         {
             get => _GoToService;
@@ -80,25 +79,26 @@ namespace MauiUI.UiLevel.Dashboards.ViewModels
         }
         #endregion
 
-        #region Private Method
+        #region Private Methods
 
-
+        /// <summary>
+        /// Φορτώνει το dashboard του χρήστη με βάση το ρόλο.
+        /// </summary>
         private void LoadUserDashboard()
         {
-
-            // Assign the appropriate dashboard view based on role
             UserDashboardView = _RoleService.CurrentRole switch
             {
                 "Administrator" => new DashboardAdminView(),
-
-                _ => new ContentView() // Default or error handling
+                _ => new ContentView()
             };
         }
 
+        /// <summary>
+        /// Φορτώνει τις υπηρεσίες από μια βάση δεδομένων ή API.
+        /// </summary>
         private async void LoadServices()
         {
-            // Simulate fetching data from a database or API
-            var servicesList = await FetchServicesAsync(); // This should be your method to fetch services
+            var servicesList = await FetchServicesAsync();
             foreach (var service in servicesList)
             {
                 service.GoToService = new Command(() => NavigateToService(service.NameOfService));
@@ -106,67 +106,49 @@ namespace MauiUI.UiLevel.Dashboards.ViewModels
             }
         }
 
+        /// <summary>
+        /// Πλοήγηση σε υπηρεσία όταν ο χρήστης επιλέξει μία.
+        /// </summary>
         private async void NavigateToService(string serviceName)
         {
             string message = $"You selected the {serviceName} service.";
-            // Navigation logic based on the service name
+
             switch (serviceName)
             {
                 case "User Management":
-                    // Navigate to User Management page
-                    await Application.Current.MainPage.DisplayAlert("Service Selected", message, "OK");
-                    break;
                 case "Payment Processing":
-                    // Navigate to Payment Processing page
-                    await Application.Current.MainPage.DisplayAlert("Service Selected", message, "OK");
-                    break;
                 case "Data Analytics":
-                    // Navigate to Data Analytics page
-                    await Application.Current.MainPage.DisplayAlert("Service Selected", message, "OK");
-                    break;
                 case "Notification Service":
-                    // Navigate to Notification Service page
-                    await Application.Current.MainPage.DisplayAlert("Service Selected", message, "OK");
-                    break;
                 case "Reporting Service":
-                    // Navigate to Reporting Service page
-                    await Application.Current.MainPage.DisplayAlert("Service Selected", message, "OK");
-                    break;
                 case "Processing":
-                    // Navigate to Payment Processing page
-                    await Application.Current.MainPage.DisplayAlert("Service Selected", message, "OK");
-                    break;
                 case "Analytics":
-                    // Navigate to Data Analytics page
-                    await Application.Current.MainPage.DisplayAlert("Service Selected", message, "OK");
-                    break;
                 case "Notification":
-                    // Navigate to Notification Service page
+                case "Service":
                     await Application.Current.MainPage.DisplayAlert("Service Selected", message, "OK");
                     break;
-                case " Service":
-                    // Navigate to Reporting Service page
-                    await Application.Current.MainPage.DisplayAlert("Service Selected", message, "OK");
+                default:
+                    await Application.Current.MainPage.DisplayAlert("Service Selected", "Service not available.", "OK");
                     break;
             }
         }
+
+        /// <summary>
+        /// Φαίνεται ότι γίνεται ανάκτηση των δεδομένων υπηρεσιών (simulation με async).
+        /// </summary>
         private Task<List<MicroServices>> FetchServicesAsync()
         {
-            // Replace this with your actual data fetching logic
             return Task.FromResult(new List<MicroServices>
-        {
-            new MicroServices { NameOfService = "User Management", ColorOfService = "LightBlue", IsEnableService = "Enable" },
-            new MicroServices { NameOfService = "Payment Processing", ColorOfService = "LightGreen", IsEnableService = "Enable" },
-            new MicroServices { NameOfService = "Data Analytics", ColorOfService = "LightCoral", IsEnableService = "Enable" },
-            new MicroServices { NameOfService = "Notification Service", ColorOfService = "LightGoldenrodYellow", IsEnableService = "Enable" },
-            new MicroServices { NameOfService = "Reporting Service", ColorOfService = "LightSalmon", IsEnableService = "Enable" },
-
-            new MicroServices { NameOfService = "Processing", ColorOfService = "LightGreen", IsEnableService = "Enable" },
-            new MicroServices { NameOfService = "Analytics", ColorOfService = "LightCoral", IsEnableService = "Enable" },
-            new MicroServices { NameOfService = "Notification", ColorOfService = "LightGoldenrodYellow", IsEnableService = "Enable" },
-            new MicroServices { NameOfService = "Service", ColorOfService = "LightSalmon", IsEnableService = "Enable" },
-
-        });
+            {
+                new MicroServices { NameOfService = "User Management", ColorOfService = "LightBlue", IsEnableService = "Enable" },
+                new MicroServices { NameOfService = "Payment Processing", ColorOfService = "LightGreen", IsEnableService = "Enable" },
+                new MicroServices { NameOfService = "Data Analytics", ColorOfService = "LightCoral", IsEnableService = "Enable" },
+                new MicroServices { NameOfService = "Notification Service", ColorOfService = "LightGoldenrodYellow", IsEnableService = "Enable" },
+                new MicroServices { NameOfService = "Reporting Service", ColorOfService = "LightSalmon", IsEnableService = "Enable" },
+                new MicroServices { NameOfService = "Processing", ColorOfService = "LightGreen", IsEnableService = "Enable" },
+                new MicroServices { NameOfService = "Analytics", ColorOfService = "LightCoral", IsEnableService = "Enable" },
+                new MicroServices { NameOfService = "Notification", ColorOfService = "LightGoldenrodYellow", IsEnableService = "Enable" },
+                new MicroServices { NameOfService = "Service", ColorOfService = "LightSalmon", IsEnableService = "Enable" },
+            });
         }
         #endregion
     }

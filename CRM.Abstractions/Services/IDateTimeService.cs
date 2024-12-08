@@ -9,19 +9,18 @@ namespace CRM.Abstractions.Services
     public interface IDateTimeService
     {
         /// <summary>
-        /// Gets the current date and time.
+        /// Επιστρέφει την τρέχουσα ημερομηνία και ώρα.
         /// </summary>
         DateTime GetCurrentDateTime();
 
         /// <summary>
-        /// Gets the current date.
+        /// Επιστρέφει την τρέχουσα ημερομηνία.
         /// </summary>
         DateTime GetCurrentDate();
 
         /// <summary>
-        /// Gets the current time.
+        /// Επιστρέφει την τρέχουσα ώρα.
         /// </summary>
         TimeSpan GetCurrentTime();
     }
-
 }

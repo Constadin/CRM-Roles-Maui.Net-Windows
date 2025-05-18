@@ -28,6 +28,7 @@ namespace MauiUI
             var builder = MauiApp.CreateBuilder(); // Δημιουργεί έναν builder για την εφαρμογή.
             builder
                 .UseMauiApp<App>() // Καθορίζει την κύρια εφαρμογή.
+                .UseDevExpressControls()
                 .UseDevExpress(useLocalization: false)
                 .UseDevExpressCollectionView()
                 .UsePrism((prismBuilder) => // Ενσωματώνει τη βιβλιοθήκη Prism.

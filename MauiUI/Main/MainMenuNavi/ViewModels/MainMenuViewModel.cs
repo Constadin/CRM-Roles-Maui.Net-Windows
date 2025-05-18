@@ -25,7 +25,7 @@ namespace MauiUI.Main.MainMenuNavi.ViewModels
             this._RoleService = serviceProvider.GetRequiredService<IRoleService>();
             this._AuthorizationService = serviceProvider.GetRequiredService<IAuthorizationService>();
 
-            // Ρύθμιση της αρχικής σελίδας με βάση τον ρόλο            
+            // Ρύθμιση της αρχικής σελίδας με βάση τον ρόλο 
 
             this.SetInitialPageAsync();
 
@@ -78,11 +78,8 @@ namespace MauiUI.Main.MainMenuNavi.ViewModels
                 }
 
                 // Πάντα προστίθεται το κουμπί Log out
-                MenuItemBtnList.Add(new MenuItemViewModel()
-                {
-                    Title = "Log out",
-                    Command = new DelegateCommand(async () => await OnNavigateAsync("LoginViewPage"))
-                });
+                this.Logout();
+
             }
         }
 
@@ -108,6 +105,18 @@ namespace MauiUI.Main.MainMenuNavi.ViewModels
                 Debug.WriteLine($"Error during navigation: {ex.Message}");
             }
         }
+
+        private void Logout()
+        {
+            this._RoleService.ClearRole();
+            MenuItemBtnList.Add(new MenuItemViewModel()
+            {
+                Title = "Log out",
+                Command = new DelegateCommand(async () => await this.NavigationService.NavigateAsync("/LoginViewPage"))
+
+            });
+        }
+
 
         #endregion
     }

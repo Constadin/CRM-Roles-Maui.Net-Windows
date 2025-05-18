@@ -115,6 +115,7 @@ namespace MauiUI.Main.Initializer.ViewModels
         // Μέθοδος για πλοήγηση στη σελίδα σύνδεσης
         private async Task NavigateToLoginPage()
         {
+            this._RoleService.ClearRole();
             await NavigationService.NavigateAsync("LoginViewPage"); // Πλοήγηση στη LoginViewPage
         }
 
